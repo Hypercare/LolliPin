@@ -1,6 +1,5 @@
 package com.github.omadahealth.lollipin.lib;
 
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;

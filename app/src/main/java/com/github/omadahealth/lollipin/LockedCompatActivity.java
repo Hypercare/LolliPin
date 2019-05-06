@@ -10,7 +10,7 @@ import lollipin.orangegangsters.github.com.lollipin.R;
 /**
  * Created by callmepeanut on 16-1-14.
  */
-public class LockedCompatActivity extends PinCompatActivity{
+public class LockedCompatActivity extends PinCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

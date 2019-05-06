@@ -15,11 +15,17 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
         maven {
             url "https://github.com/omadahealth/omada-nexus/raw/master/release"
         }
         jcenter()
-        maven { url 'https://jitpack.io' }
+        google()
+        maven { url "https://jitpack.io" }
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            cacheChangingModulesFor 0, 'seconds'
+        }
     }
 }

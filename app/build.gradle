@@ -5,7 +5,7 @@ android {
     buildToolsVersion '28.0.3'
 
     defaultConfig {
-        applicationId "com.github.orangegangsters.lollipin"
+        applicationId "com.github.omadahealth.lollipin"
         minSdkVersion 14
         targetSdkVersion 28
         versionCode 1
@@ -22,7 +22,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(':lib')
+    implementation ('com.github.Hypercare:LolliPin:biometricPrompt-SNAPSHOT') {
+        changing = true
+        transitive = true
+    }
     implementation 'androidx.appcompat:appcompat:1.0.2'
 
     //Lollipop dialogs https://github.com/lewisjdeane/L-Dialogs and buttons, animations etc...
@@ -30,14 +33,5 @@ dependencies {
 
     //test
     androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.5.2'
-}
-
-// REQUIRED: Google's new Maven repo is required for the latest
-// support library that is compatible with Android 8.0
-repositories {
-    maven {
-        url 'https://maven.google.com'
-        // Alternative URL is 'https://dl.google.com/dl/android/maven2/'
-    }
 }
 

@@ -275,11 +275,7 @@ public class AppLockImpl<T extends AppLockActivity> extends AppLock implements L
             storedPasscode = mSharedPreferences.getString(PASSWORD_PREFERENCE_KEY, "");
         }
 
-        if (storedPasscode.equalsIgnoreCase(passcode)) {
-            return true;
-        } else {
-            return false;
-        }
+        return storedPasscode.equalsIgnoreCase(passcode);
     }
 
     @Override

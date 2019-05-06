@@ -38,7 +38,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/pin_code_first_row"
         android:weightSum="3">
 
         <com.github.omadahealth.lollipin.lib.views.KeyboardButtonView
@@ -68,7 +67,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/pin_code_second_row"
         android:weightSum="3">
 
         <com.github.omadahealth.lollipin.lib.views.KeyboardButtonView
@@ -98,7 +96,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/pin_code_third_row"
         android:weightSum="3">
 
         <com.github.omadahealth.lollipin.lib.views.KeyboardButtonView

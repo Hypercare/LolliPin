@@ -20,7 +20,7 @@ public class CustomPinActivity extends AppLockActivity {
     @Override
     public void showForgotDialog() {
         Resources res = getResources();
-        // Create the builder with required paramaters - Context, Title, Positive Text
+        // Create the builder with required parameters - Context, Title, Positive Text
         CustomDialog.Builder builder = new CustomDialog.Builder(this,
                 res.getString(R.string.activity_dialog_title),
                 res.getString(R.string.activity_dialog_accept));
