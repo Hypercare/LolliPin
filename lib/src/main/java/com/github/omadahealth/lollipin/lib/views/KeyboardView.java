@@ -4,7 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.github.omadahealth.lollipin.lib.R;
 import com.github.omadahealth.lollipin.lib.enums.KeyboardButtonEnum;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Created by stoyan and olivier on 1/13/15.
  */
-public class KeyboardView extends LinearLayout implements View.OnClickListener {
+public class KeyboardView extends ConstraintLayout implements View.OnClickListener {
 
     private Context mContext;
     private KeyboardButtonClickedListener mKeyboardButtonClickedListener;

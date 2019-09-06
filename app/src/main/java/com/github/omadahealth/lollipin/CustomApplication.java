@@ -4,8 +4,6 @@ import android.app.Application;
 
 import com.github.omadahealth.lollipin.lib.managers.LockManager;
 
-import lollipin.orangegangsters.github.com.lollipin.R;
-
 /**
  * Created by oliviergoutay on 1/14/15.
  */

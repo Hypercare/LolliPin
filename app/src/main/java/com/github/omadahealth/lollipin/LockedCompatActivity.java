@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 
 import com.github.omadahealth.lollipin.lib.PinCompatActivity;
-import lollipin.orangegangsters.github.com.lollipin.R;
 
 /**
  * Created by callmepeanut on 16-1-14.

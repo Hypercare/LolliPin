@@ -275,11 +275,7 @@ public class AppLockImpl<T extends AppLockActivity> extends AppLock implements L
             storedPasscode = mSharedPreferences.getString(PASSWORD_PREFERENCE_KEY, "");
         }
 
-        if (storedPasscode.equalsIgnoreCase(passcode)) {
-            return true;
-        } else {
-            return false;
-        }
+        return storedPasscode.equalsIgnoreCase(passcode);
     }
 
     @Override
@@ -314,11 +310,7 @@ public class AppLockImpl<T extends AppLockActivity> extends AppLock implements L
 
     @Override
     public boolean isPasscodeSet() {
-        if (mSharedPreferences.contains(PASSWORD_PREFERENCE_KEY)) {
-            return true;
-        }
-
-        return false;
+        return mSharedPreferences.contains(PASSWORD_PREFERENCE_KEY);
     }
 
     @Override

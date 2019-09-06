@@ -4,6 +4,11 @@ android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         applicationId "com.github.orangegangsters.lollipin"
         minSdkVersion 14
@@ -23,7 +28,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':lib')
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.biometric:biometric:1.0.0-beta01'
+    implementation 'com.google.android.material:material:1.1.0-alpha09'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
     //Lollipop dialogs https://github.com/lewisjdeane/L-Dialogs and buttons, animations etc...
     implementation 'uk.me.lewisdeane.ldialogs:ldialogs:1.2.0@aar'
@@ -35,9 +44,6 @@ dependencies {
 // REQUIRED: Google's new Maven repo is required for the latest
 // support library that is compatible with Android 8.0
 repositories {
-    maven {
-        url 'https://maven.google.com'
-        // Alternative URL is 'https://dl.google.com/dl/android/maven2/'
-    }
+    google()
 }
 
