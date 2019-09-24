@@ -73,83 +73,34 @@ public class BiometricHelper extends BiometricPrompt.AuthenticationCallback {
     private Executor mExecutor;
 
     /**
-     * The {@link BiometricPrompt} object used for authentication
-     */
-    private BiometricPrompt mBiometricPrompt;
-
-    /**
-     * The {@link BiometricPrompt.PromptInfo} used in the authenticate method of
-     * {@link BiometricPrompt}
-     */
-    private BiometricPrompt.PromptInfo mBiometricInfo;
-
-    /**
-     * Handler used for handling UI events
-     */
-    private Handler mHandler;
-
-    /**
      * Constructor for {@link BiometricHelper}.
      */
 
-    BiometricHelper(FragmentActivity activity, Callback callback) {
+    BiometricHelper(Callback callback) {
         mCallback = callback;
         mExecutor = Executors.newSingleThreadExecutor();
-        mBiometricPrompt = new BiometricPrompt(activity, mExecutor, this);
-        mBiometricInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle(activity.getString(R.string.biometric_prompt_title))
-                .setNegativeButtonText(activity.getString(R.string.biometric_use_pin_code))
-                .build();
-        mHandler = new Handler(activity.getMainLooper());
     }
 
-    void start() throws SecurityException {
+    void start(FragmentActivity activity) throws SecurityException {
         if (initCipher()) {
             final BiometricPrompt.CryptoObject cryptoObject = new BiometricPrompt.CryptoObject(mCipher);
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    mBiometricPrompt.authenticate(mBiometricInfo, cryptoObject);
-                }
-            });
+            BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                    .setTitle(activity.getString(R.string.biometric_prompt_title))
+                    .setNegativeButtonText(activity.getString(R.string.biometric_use_pin_code))
+                    .build();
+            BiometricPrompt biometricPrompt = new BiometricPrompt(activity, mExecutor, this);
+            biometricPrompt.authenticate(promptInfo, cryptoObject);
         }
-    }
-
-    void stop() {
-        mBiometricPrompt.cancelAuthentication();
     }
 
     @Override
     public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                mCallback.onAuthenticated();
-            }
-        });
+        mCallback.onAuthenticated();
     }
-
 
     @Override
     public void onAuthenticationError(final int errMsgId, @NonNull final CharSequence errString) {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                handleError(errMsgId);
-                mCallback.onError(errMsgId == BiometricPrompt.ERROR_NEGATIVE_BUTTON || errMsgId == BiometricPrompt.ERROR_USER_CANCELED, errString.toString());
-            }
-        });
-    }
-
-    private void handleError(int errMsgId) {
-        if (errMsgId == BiometricPrompt.ERROR_HW_NOT_PRESENT ||
-                errMsgId == BiometricPrompt.ERROR_HW_UNAVAILABLE ||
-                errMsgId == BiometricPrompt.ERROR_NO_BIOMETRICS ||
-                errMsgId == BiometricPrompt.ERROR_LOCKOUT_PERMANENT ||
-                errMsgId == BiometricPrompt.ERROR_NEGATIVE_BUTTON ||
-                errMsgId == BiometricPrompt.ERROR_USER_CANCELED) {
-            mBiometricPrompt.cancelAuthentication();
-        }
+        mCallback.onError(errMsgId == BiometricPrompt.ERROR_NEGATIVE_BUTTON || errMsgId == BiometricPrompt.ERROR_USER_CANCELED, errString.toString());
     }
 
     @Override

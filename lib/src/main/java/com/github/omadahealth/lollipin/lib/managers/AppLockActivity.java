@@ -44,18 +44,15 @@ public abstract class AppLockActivity extends PinCompatActivity implements
     protected TextView mForgotTextView;
     protected PinCodeRoundView mPinCodeRoundView;
     protected KeyboardView mKeyboardView;
-    protected ImageView mBiometricImageView;
-    protected TextView mBiometricTextView;
 
     protected LockManager mLockManager;
     protected BiometricHelper mBiometricHelper;
 
     protected int mType = AppLock.UNLOCK_PIN;
     protected int mAttempts = 1;
+
     protected String mPinCode;
-
     protected String mOldPinCode;
-
     private boolean isCodeSuccessful = false;
 
     /**
@@ -64,9 +61,9 @@ public abstract class AppLockActivity extends PinCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(getContentView());
         initLayout(getIntent());
+        initBiometrics();
     }
 
     /**
@@ -78,20 +75,6 @@ public abstract class AppLockActivity extends PinCompatActivity implements
         initLayout(intent);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initBiometrics();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (mBiometricHelper != null) {
-            mBiometricHelper.stop();
-        }
-    }
-
     /**
      * Init completely the layout, depending of the extra {@link com.github.omadahealth.lollipin.lib.managers.AppLock#EXTRA_TYPE}
      */
@@ -99,9 +82,7 @@ public abstract class AppLockActivity extends PinCompatActivity implements
         overridePendingTransition(R.anim.nothing, R.anim.nothing);
 
         Bundle extras = intent.getExtras();
-        if (extras != null) {
-            mType = extras.getInt(AppLock.EXTRA_TYPE, AppLock.UNLOCK_PIN);
-        }
+        if (extras != null) mType = extras.getInt(AppLock.EXTRA_TYPE, AppLock.UNLOCK_PIN);
 
         mLockManager = LockManager.getInstance();
         mPinCode = "";
@@ -117,8 +98,6 @@ public abstract class AppLockActivity extends PinCompatActivity implements
         mForgotTextView.setOnClickListener(this);
         mKeyboardView = findViewById(R.id.pin_code_keyboard_view);
         mKeyboardView.setKeyboardButtonClickedListener(this);
-        mBiometricImageView = findViewById(R.id.pin_code_fingerprint_imageview);
-        mBiometricTextView = findViewById(R.id.pin_code_fingerprint_textview);
 
         int logoId = mLockManager.getAppLock().getLogoId();
         ImageView logoImage = findViewById(R.id.pin_code_logo_imageview);
@@ -136,21 +115,10 @@ public abstract class AppLockActivity extends PinCompatActivity implements
         boolean canAuthenticate = BiometricManager.from(this).canAuthenticate() == BIOMETRIC_SUCCESS;
         boolean fingerprintEnabled = mLockManager.getAppLock().isFingerprintAuthEnabled();
         if (mType == AppLock.UNLOCK_PIN && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && canAuthenticate && fingerprintEnabled) {
-            mBiometricHelper = new BiometricHelper(this, this);
-            mBiometricImageView.setVisibility(View.VISIBLE);
-            mBiometricTextView.setVisibility(View.VISIBLE);
+            mBiometricHelper = new BiometricHelper(this);
             if (mLockManager.getAppLock().isFingerprintAuthEnabled()) {
-                mBiometricHelper.start();
+                mBiometricHelper.start(this);
             }
-            mBiometricImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mBiometricHelper != null) mBiometricHelper.start();
-                }
-            });
-        } else {
-            mBiometricImageView.setVisibility(View.GONE);
-            mBiometricTextView.setVisibility(View.GONE);
         }
     }
 
@@ -239,9 +207,12 @@ public abstract class AppLockActivity extends PinCompatActivity implements
      */
     @Override
     public void onKeyboardClick(KeyboardButtonEnum keyboardButtonEnum) {
+        int value = keyboardButtonEnum.getButtonValue();
+        if (keyboardButtonEnum == KeyboardButtonEnum.BUTTON_BIOMETRICS) {
+            if (mBiometricHelper != null) mBiometricHelper.start(AppLockActivity.this);
+            return;
+        }
         if (mPinCode.length() < this.getPinLength()) {
-            int value = keyboardButtonEnum.getButtonValue();
-
             if (value == KeyboardButtonEnum.BUTTON_CLEAR.getButtonValue()) {
                 if (!mPinCode.isEmpty()) {
                     setPinCode(mPinCode.substring(0, mPinCode.length() - 1));
@@ -343,12 +314,6 @@ public abstract class AppLockActivity extends PinCompatActivity implements
 
     @Override
     public void onAuthenticated() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mBiometricImageView.setImageResource(R.drawable.ic_fingerprint_success);
-            mBiometricTextView.setText(R.string.pin_code_fingerprint_success);
-            mBiometricTextView.setTextColor(getResources().getColor(R.color.success_color, null));
-        }
-
         setResult(RESULT_OK);
         onPinCodeSuccess();
         finish();
@@ -357,25 +322,7 @@ public abstract class AppLockActivity extends PinCompatActivity implements
     @Override
     public void onError(boolean selfCancel, String errorString) {
         if (selfCancel) return;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mBiometricImageView.setImageResource(R.drawable.ic_fingerprint_error);
-            mBiometricTextView.setText(errorString);
-            mBiometricTextView.setTextColor(getResources().getColor(R.color.warning_color, null));
-            mBiometricTextView.removeCallbacks(mResetErrorText);
-            mBiometricTextView.postDelayed(mResetErrorText, 1000);
-        }
     }
-
-    Runnable mResetErrorText = new Runnable() {
-        @Override
-        public void run() {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                mBiometricTextView.setTextColor(getResources().getColor(R.color.dark_grey_color, null));
-                mBiometricTextView.setText(getString(R.string.pin_code_use_biometrics));
-                mBiometricImageView.setImageResource(R.drawable.ic_fp_40px);
-            }
-        }
-    };
 
     /**
      * Gets the list of {@link AppLock} types that are acceptable to be backed out of using

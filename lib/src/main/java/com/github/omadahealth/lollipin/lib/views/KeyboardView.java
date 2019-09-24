@@ -64,6 +64,7 @@ public class KeyboardView extends ConstraintLayout implements View.OnClickListen
         mButtons.add((KeyboardButtonView) view.findViewById(R.id.pin_code_button_8));
         mButtons.add((KeyboardButtonView) view.findViewById(R.id.pin_code_button_9));
         mButtons.add((KeyboardButtonView) view.findViewById(R.id.pin_code_button_clear));
+        mButtons.add((KeyboardButtonView) view.findViewById(R.id.pin_code_button_biometrics));
 
         for(View button : mButtons) {
             button.setOnClickListener(this);
@@ -99,6 +100,8 @@ public class KeyboardView extends ConstraintLayout implements View.OnClickListen
             mKeyboardButtonClickedListener.onKeyboardClick(KeyboardButtonEnum.BUTTON_9);
         } else if(id == R.id.pin_code_button_clear) {
             mKeyboardButtonClickedListener.onKeyboardClick(KeyboardButtonEnum.BUTTON_CLEAR);
+        } else if (id == R.id.pin_code_button_biometrics) {
+            mKeyboardButtonClickedListener.onKeyboardClick(KeyboardButtonEnum.BUTTON_BIOMETRICS);
         }
     }
 

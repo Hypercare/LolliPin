@@ -55,20 +55,20 @@ public class KeyboardButtonView extends RelativeLayout implements RippleAnimatio
             KeyboardButtonView view = (KeyboardButtonView) inflater.inflate(R.layout.view_keyboard_button, this);
 
             if (text != null) {
-                TextView textView = (TextView) view.findViewById(R.id.keyboard_button_textview);
+                TextView textView = view.findViewById(R.id.keyboard_button_textview);
                 if (textView != null) {
                     textView.setText(text);
                 }
             }
             if (image != null) {
-                ImageView imageView = (ImageView) view.findViewById(R.id.keyboard_button_imageview);
+                ImageView imageView = view.findViewById(R.id.keyboard_button_imageview);
                 if (imageView != null) {
                     imageView.setImageDrawable(image);
                     imageView.setVisibility(View.VISIBLE);
                 }
             }
 
-            mRippleView = (RippleView) view.findViewById(R.id.pin_code_keyboard_button_ripple);
+            mRippleView = view.findViewById(R.id.pin_code_keyboard_button_ripple);
             mRippleView.setRippleAnimationListener(this);
             if (mRippleView != null) {
                 if (!rippleEnabled) {
