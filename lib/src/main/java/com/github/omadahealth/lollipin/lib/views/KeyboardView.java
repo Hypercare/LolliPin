@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.github.omadahealth.lollipin.lib.R;
 import com.github.omadahealth.lollipin.lib.enums.KeyboardButtonEnum;
 import com.github.omadahealth.lollipin.lib.interfaces.KeyboardButtonClickedListener;
+import com.github.omadahealth.lollipin.lib.managers.AppLock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,6 +104,11 @@ public class KeyboardView extends ConstraintLayout implements View.OnClickListen
         } else if (id == R.id.pin_code_button_biometrics) {
             mKeyboardButtonClickedListener.onKeyboardClick(KeyboardButtonEnum.BUTTON_BIOMETRICS);
         }
+    }
+
+    public void showBiometricsButton(int type) {
+        boolean showBiometrics = type == AppLock.UNLOCK_PIN;
+        mButtons.get(mButtons.size() - 1).setVisibility(showBiometrics ? View.VISIBLE : View.INVISIBLE);
     }
 
     /**

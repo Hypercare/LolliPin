@@ -98,6 +98,7 @@ public abstract class AppLockActivity extends PinCompatActivity implements
         mForgotTextView.setOnClickListener(this);
         mKeyboardView = findViewById(R.id.pin_code_keyboard_view);
         mKeyboardView.setKeyboardButtonClickedListener(this);
+        mKeyboardView.showBiometricsButton(mType);
 
         int logoId = mLockManager.getAppLock().getLogoId();
         ImageView logoImage = findViewById(R.id.pin_code_logo_imageview);
