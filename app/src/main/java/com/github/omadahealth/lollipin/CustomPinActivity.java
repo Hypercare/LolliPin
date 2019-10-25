@@ -7,8 +7,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.widget.Toast;
 
 import com.github.omadahealth.lollipin.lib.managers.AppLockActivity;
-
-import lollipin.orangegangsters.github.com.lollipin.R;
 import uk.me.lewisdeane.ldialogs.BaseDialog;
 import uk.me.lewisdeane.ldialogs.CustomDialog;
 
@@ -30,8 +28,6 @@ public class CustomPinActivity extends AppLockActivity {
         //Set theme
         builder.darkTheme(false);
         builder.typeface(Typeface.SANS_SERIF);
-        builder.positiveColor(res.getColor(R.color.light_blue_500)); // int res, or int colorRes parameter versions available as well.
-        builder.negativeColor(res.getColor(R.color.light_blue_500));
         builder.rightToLeft(false); // Enables right to left positioning for languages that may require so.
         builder.titleAlignment(BaseDialog.Alignment.CENTER);
         builder.buttonAlignment(BaseDialog.Alignment.CENTER);

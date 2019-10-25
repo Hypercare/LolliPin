@@ -18,17 +18,21 @@
     <string name="button8_small_text" translatable="false">TUV</string>
     <string name="button9_large_text" translatable="false">9</string>
     <string name="button9_small_text" translatable="false">WXYZ</string>
-    <string name="button11_large_text" translatable="false">0</string>
+    <string name="button0_large_text" translatable="false">0</string>
 
     <string name="pin_code_forgot_text">Forgot?</string>
-    <string name="pin_code_step_disable">Disable %d-digit Pincode</string>
-    <string name="pin_code_step_create">Create a %d-digit Pincode</string>
-    <string name="pin_code_step_change">Enter your current %d-digit Pincode</string>
-    <string name="pin_code_step_unlock">Enter your %d-digit Pincode</string>
-    <string name="pin_code_step_enable_confirm">Confirm your %d-digit Pincode</string>
+    <string name="pin_code_step_disable">Disable %d-digit Pin Code</string>
+    <string name="pin_code_step_create">Create a %d-digit Pin Code</string>
+    <string name="pin_code_step_change">Enter your current %d-digit Pin Code</string>
+    <string name="pin_code_step_unlock">Enter your %d-digit Pin Code</string>
+    <string name="pin_code_step_enable_confirm">Confirm your %d-digit Pin Code</string>
+    <string name="pin_code_enabled" translatable="false">Pin Code enabled</string>
 
     <string name="pin_code_fingerprint_text">Fingerprint</string>
-    <string name="pin_code_fingerprint_success">Fingerprint recognized</string>
+    <string name="pin_code_fingerprint_success">Success</string>
     <string name="pin_code_fingerprint_not_recognized">Fingerprint not recognized. Try again</string>
+    <string name="pin_code_use_biometrics" translatable="false">Use biometrics</string>
+    <string name="biometric_use_pin_code" translatable="false">Use Pin Code</string>
+    <string name="biometric_prompt_title" translatable="false">Authenticate</string>
 
 </resources>

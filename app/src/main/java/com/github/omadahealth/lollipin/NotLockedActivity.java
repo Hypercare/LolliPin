@@ -3,8 +3,6 @@ package com.github.omadahealth.lollipin;
 import android.app.Activity;
 import android.os.Bundle;
 
-import lollipin.orangegangsters.github.com.lollipin.R;
-
 /**
  * Created by oliviergoutay on 1/13/15.
  */

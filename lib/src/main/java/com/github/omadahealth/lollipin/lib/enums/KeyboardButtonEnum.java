@@ -15,7 +15,8 @@ public enum KeyboardButtonEnum {
     BUTTON_7(7),
     BUTTON_8(8),
     BUTTON_9(9),
-    BUTTON_CLEAR(-1);
+    BUTTON_CLEAR(-1),
+    BUTTON_BIOMETRICS(-2);
 
     private int mButtonValue;
 

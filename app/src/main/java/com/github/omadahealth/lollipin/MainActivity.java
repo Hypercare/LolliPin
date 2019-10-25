@@ -8,8 +8,6 @@ import android.widget.Toast;
 import com.github.omadahealth.lollipin.lib.PinActivity;
 import com.github.omadahealth.lollipin.lib.managers.AppLock;
 
-import lollipin.orangegangsters.github.com.lollipin.R;
-
 
 public class MainActivity extends PinActivity implements View.OnClickListener {
 
@@ -59,7 +57,7 @@ public class MainActivity extends PinActivity implements View.OnClickListener {
 
         switch (requestCode){
             case REQUEST_CODE_ENABLE:
-                Toast.makeText(this, "PinCode enabled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.pin_code_enabled, Toast.LENGTH_SHORT).show();
                 break;
         }
     }

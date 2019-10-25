@@ -1,15 +1,16 @@
 package com.github.omadahealth.lollipin.lib.views;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.github.omadahealth.lollipin.lib.R;
 import com.github.omadahealth.lollipin.lib.enums.KeyboardButtonEnum;
 import com.github.omadahealth.lollipin.lib.interfaces.KeyboardButtonClickedListener;
+import com.github.omadahealth.lollipin.lib.managers.AppLock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * Created by stoyan and olivier on 1/13/15.
  */
-public class KeyboardView extends LinearLayout implements View.OnClickListener {
+public class KeyboardView extends ConstraintLayout implements View.OnClickListener {
 
     private Context mContext;
     private KeyboardButtonClickedListener mKeyboardButtonClickedListener;
@@ -36,10 +37,10 @@ public class KeyboardView extends LinearLayout implements View.OnClickListener {
         super(context, attrs, defStyleAttr);
 
         this.mContext = context;
-        initializeView(attrs, defStyleAttr);
+        initializeView();
     }
 
-    private void initializeView(AttributeSet attrs, int defStyleAttr) {
+    private void initializeView() {
         if (!isInEditMode()) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             KeyboardView view = (KeyboardView) inflater.inflate(R.layout.view_keyboard, this);
@@ -64,6 +65,7 @@ public class KeyboardView extends LinearLayout implements View.OnClickListener {
         mButtons.add((KeyboardButtonView) view.findViewById(R.id.pin_code_button_8));
         mButtons.add((KeyboardButtonView) view.findViewById(R.id.pin_code_button_9));
         mButtons.add((KeyboardButtonView) view.findViewById(R.id.pin_code_button_clear));
+        mButtons.add((KeyboardButtonView) view.findViewById(R.id.pin_code_button_biometrics));
 
         for(View button : mButtons) {
             button.setOnClickListener(this);
@@ -99,7 +101,14 @@ public class KeyboardView extends LinearLayout implements View.OnClickListener {
             mKeyboardButtonClickedListener.onKeyboardClick(KeyboardButtonEnum.BUTTON_9);
         } else if(id == R.id.pin_code_button_clear) {
             mKeyboardButtonClickedListener.onKeyboardClick(KeyboardButtonEnum.BUTTON_CLEAR);
+        } else if (id == R.id.pin_code_button_biometrics) {
+            mKeyboardButtonClickedListener.onKeyboardClick(KeyboardButtonEnum.BUTTON_BIOMETRICS);
         }
+    }
+
+    public void showBiometricsButton(int type) {
+        boolean showBiometrics = type == AppLock.UNLOCK_PIN;
+        mButtons.get(mButtons.size() - 1).setVisibility(showBiometrics ? View.VISIBLE : View.INVISIBLE);
     }
 
     /**

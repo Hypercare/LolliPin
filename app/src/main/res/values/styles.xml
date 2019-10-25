@@ -6,18 +6,18 @@
     </style>
 
 
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppBaseTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- customize the color palette -->
-        <item name="colorPrimary">@color/material_blue_500</item>
-        <item name="colorPrimaryDark">@color/material_blue_700</item>
-        <item name="colorAccent">@color/material_green_A200</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/accentColor</item>
     </style>
 
-    <style name="AppThemeNoActionbar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemeNoActionbar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- customize the color palette -->
-        <item name="colorPrimary">@color/material_blue_500</item>
-        <item name="colorPrimaryDark">@color/material_blue_700</item>
-        <item name="colorAccent">@color/material_green_A200</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/accentColor</item>
     </style>
 
 </resources>
