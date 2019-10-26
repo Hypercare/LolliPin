@@ -106,9 +106,8 @@ public class KeyboardView extends ConstraintLayout implements View.OnClickListen
         }
     }
 
-    public void showBiometricsButton(int type) {
-        boolean showBiometrics = type == AppLock.UNLOCK_PIN;
-        mButtons.get(mButtons.size() - 1).setVisibility(showBiometrics ? View.VISIBLE : View.INVISIBLE);
+    public void showBiometricsButton(boolean show) {
+        mButtons.get(mButtons.size() - 1).setVisibility(show ? View.VISIBLE : View.INVISIBLE);
     }
 
     /**

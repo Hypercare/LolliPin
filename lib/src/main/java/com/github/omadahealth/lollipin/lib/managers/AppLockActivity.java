@@ -98,7 +98,7 @@ public abstract class AppLockActivity extends PinCompatActivity implements
         mForgotTextView.setOnClickListener(this);
         mKeyboardView = findViewById(R.id.pin_code_keyboard_view);
         mKeyboardView.setKeyboardButtonClickedListener(this);
-        mKeyboardView.showBiometricsButton(mType);
+        mKeyboardView.showBiometricsButton(false);
 
         int logoId = mLockManager.getAppLock().getLogoId();
         ImageView logoImage = findViewById(R.id.pin_code_logo_imageview);
@@ -116,6 +116,7 @@ public abstract class AppLockActivity extends PinCompatActivity implements
         boolean canAuthenticate = BiometricManager.from(this).canAuthenticate() == BIOMETRIC_SUCCESS;
         boolean fingerprintEnabled = mLockManager.getAppLock().isFingerprintAuthEnabled();
         if (mType == AppLock.UNLOCK_PIN && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && canAuthenticate && fingerprintEnabled) {
+            mKeyboardView.showBiometricsButton(true);
             mBiometricHelper = new BiometricHelper(this);
             if (mLockManager.getAppLock().isFingerprintAuthEnabled()) {
                 mBiometricHelper.start(this);
